@@ -1,54 +1,38 @@
-import { useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
+import { useEffect } from "react";
+
+import populateFavorites from "./populateFavorites";
+
 import FavoriteObject from "./FavoriteObject";
+import Row from "react-bootstrap/Row";
 
-const FavoritesGrid = () => {
-  const favoritesExist = localStorage.getItem("favoriteObjects");
-  const favoriteObjects = favoritesExist
-    ? JSON.parse(localStorage.getItem("favoriteObjects"))
-    : [];
-
-  const [favorites, setFavorites] = useState([]);
-
+const FavoritesGrid = ({ loading, favorites, setFavorites }) => {
   const fetchFavorites = async () => {
-    const cards = [];
-    for (const objectID of favoriteObjects) {
-      const objectResponse = await fetch(
-        `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
-      );
-      const objectData = await objectResponse.json();
-
-      const card = {
-        objectID,
-        objectTitle: objectData.title,
-        imageURL: objectData.primaryImage,
-        galleryNumber: objectData.GalleryNumber,
-      };
-
-      cards.push(card);
-    }
-    setFavorites(cards);
+    const favoritesData = await populateFavorites();
+    setFavorites(favoritesData);
   };
 
   useEffect(() => {
-    if (favoriteObjects.length > 0) {
-      fetchFavorites();
-    }
-  }, [favoriteObjects]);
+    fetchFavorites();
+  }, []);
 
   return (
     <>
       <h2>Favorites Grid</h2>
       <Row xs={1} md={1} className="g-4">
-        {favorites.map((card, index) => (
-          <FavoriteObject
-            key={index}
-            objectID={card.objectID}
-            imageURL={card.imageURL}
-            title={card.objectTitle}
-            galleryNumber={card.galleryNumber}
-          />
-        ))}
+        {!loading && (
+          <>
+            {favorites.map((card, index) => (
+              <FavoriteObject
+                key={index}
+                objectID={card.objectID}
+                imageURL={card.imageURL}
+                title={card.objectTitle}
+                galleryNumber={card.galleryNumber}
+                setFavorites={setFavorites}
+              />
+            ))}
+          </>
+        )}
       </Row>
     </>
   );

@@ -1,16 +1,27 @@
+import populateFavorites from "./populateFavorites";
+
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 
-const FavoriteObject = ({ objectID, imageURL, title, galleryNumber }) => {
-  const clickHandler = () => {
+const FavoriteObject = ({
+  objectID,
+  imageURL,
+  title,
+  galleryNumber,
+  setFavorites,
+}) => {
+  const clickHandler = async () => {
     const favoritesExist = localStorage.getItem("favoriteObjects");
     let favoriteObjects = favoritesExist
       ? JSON.parse(localStorage.getItem("favoriteObjects"))
       : [];
 
-    favoriteObjects = favoriteObjects.filter((object) => object !== objectID);
-    localStorage.setItem("favoriteObjects", JSON.stringify(favoriteObjects));
-    console.log("Unfavorited");
+    if (favoriteObjects.includes(objectID)) {
+      favoriteObjects = favoriteObjects.filter((object) => object !== objectID);
+      localStorage.setItem("favoriteObjects", JSON.stringify(favoriteObjects));
+      console.log("Unfavorited");
+      setFavorites(await populateFavorites());
+    }
   };
 
   return (

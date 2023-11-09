@@ -1,53 +1,20 @@
-import "./App.css";
-import metLogo from "./assets/met_logo.jpg";
+import { useState } from "react";
 
-import { useState, useEffect } from "react";
+import "./App.css";
+
+import metLogo from "./assets/met_logo.jpg";
 
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Grid from "./components/Grid.js";
+import ArtGrid from "./components/ArtGrid.js";
 import FavoritesGrid from "./components/FavoritesGrid.js";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function App() {
-  const [objects, setObjects] = useState([]);
-
-  const fetchMetData = async () => {
-    const maxCards = 8;
-    const response = await fetch(
-      `https://collectionapi.metmuseum.org/public/collection/v1/search?isOnView=true&hasImages=true&q=Auguste Renoir`
-    );
-    const data = await response.json();
-
-    if (data && data.objectIDs) {
-      const objectIDs = data.objectIDs.slice(0, maxCards);
-
-      const cards = [];
-
-      for (const objectID of objectIDs) {
-        const objectResponse = await fetch(
-          `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
-        );
-        const objectData = await objectResponse.json();
-
-        const card = {
-          objectID,
-          objectTitle: objectData.title,
-          imageURL: objectData.primaryImage,
-          galleryNumber: objectData.GalleryNumber,
-        };
-
-        cards.push(card);
-      }
-      setObjects(cards);
-    }
-  };
-
-  useEffect(() => {
-    fetchMetData();
-  }, []);
+  const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]);
 
   return (
     <>
@@ -62,11 +29,16 @@ function App() {
       </Navbar>
       <Container>
         <Row xs={1} md={12} className="g-4" style={{ paddingTop: "50px" }}>
+          {loading && <h2>Loading...</h2>}
           <Col md={4}>
-            <FavoritesGrid />
+            <FavoritesGrid
+              loading={loading}
+              favorites={favorites}
+              setFavorites={setFavorites}
+            />
           </Col>
           <Col md={8}>
-            <Grid objects={objects} />
+            <ArtGrid setLoading={setLoading} setFavorites={setFavorites} />
           </Col>
         </Row>
       </Container>
