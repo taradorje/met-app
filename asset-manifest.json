@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/met-app/static/css/main.ab0916b8.css",
+    "main.js": "/met-app/static/js/main.953a7b6b.js",
+    "static/media/met_logo.jpg": "/met-app/static/media/met_logo.2e234cbc076d6babc9a5.jpg",
+    "index.html": "/met-app/index.html",
+    "main.ab0916b8.css.map": "/met-app/static/css/main.ab0916b8.css.map",
+    "main.953a7b6b.js.map": "/met-app/static/js/main.953a7b6b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ab0916b8.css",
+    "static/js/main.953a7b6b.js"
+  ]
+}
