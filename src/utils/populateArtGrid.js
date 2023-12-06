@@ -18,7 +18,7 @@ const populateArtGrid = async () => {
       if (objectData.primaryImageSmall && objectData.title.length < 100) {
         const card = {
           objectID,
-          title: objectData.title !== "" ? objectData.title : "Untitled",
+          title: objectData.title || "Untitled",
           artist: objectData.artistDisplayName || "Unknown",
           imageURL: objectData.primaryImageSmall || null,
           galleryNumber: objectData.GalleryNumber || "N/A",

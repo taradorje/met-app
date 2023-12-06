@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
+// Functions
+import populateArtGrid from "../utils/populateArtGrid";
+
 // Components
-import populateArtGrid from "./populateArtGrid";
 import ArtObject from "./ArtObject";
 
 // React Bootstrap Components
@@ -23,8 +25,12 @@ const ArtGrid = ({ setLoading, setFavorites }) => {
   return (
     <>
       <Row className="p-0">
-        {objects.map((object, index) => (
-          <ArtObject key={index} {...object} setFavorites={setFavorites} />
+        {objects.map((object) => (
+          <ArtObject
+            object={object}
+            key={object.objectID}
+            setFavorites={setFavorites}
+          />
         ))}
       </Row>
     </>
