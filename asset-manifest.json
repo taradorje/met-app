@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/met-app/static/css/main.9d4b1c19.css",
-    "main.js": "/met-app/static/js/main.0410b7d1.js",
+    "main.css": "/met-app/static/css/main.bfa34250.css",
+    "main.js": "/met-app/static/js/main.f46ef479.js",
     "static/media/met_logo.jpg": "/met-app/static/media/met_logo.2e234cbc076d6babc9a5.jpg",
     "index.html": "/met-app/index.html",
-    "main.9d4b1c19.css.map": "/met-app/static/css/main.9d4b1c19.css.map",
-    "main.0410b7d1.js.map": "/met-app/static/js/main.0410b7d1.js.map"
+    "main.bfa34250.css.map": "/met-app/static/css/main.bfa34250.css.map",
+    "main.f46ef479.js.map": "/met-app/static/js/main.f46ef479.js.map"
   },
   "entrypoints": [
-    "static/css/main.9d4b1c19.css",
-    "static/js/main.0410b7d1.js"
+    "static/css/main.bfa34250.css",
+    "static/js/main.f46ef479.js"
   ]
 }
